@@ -3,15 +3,12 @@ import java.util.Scanner;
 
 public class Main {
 
-	
+	static Plateau plateau;
+	static int joueur;
 	
 	public static void main(String[] args) {		
-		Plateau plateau = new Plateau();
-		System.out.println(plateau);
-		
-		int joueur = 1; //joueur 1 ou joueur 2
-		boolean rejoue = true;
-		while(!plateau.plein() && rejoue) {
+		initGame();
+		while(!plateau.plein()) {
 			
 			int colonneChoisie = -1;
 			boolean choixOK = false;
@@ -30,10 +27,14 @@ public class Main {
 						if(ajoutPion == joueur) { //Le joueur a gagné !!!
 							System.out.println("Bravo !! Le joueur " + joueur + " a gagné !!");
 							if(rejouer()) {
-								
+								initGame();
 							}else {
-								rejoue = false;
+								finDuJeu();
 							}
+						}
+						else { //Le joueur n'a pas encore gagné, le jeu contine
+							System.out.println(plateau);
+							joueur = (joueur == 1) ? 2 : 1; //Joueur suivant
 						}
 					}
 				}
@@ -41,10 +42,8 @@ public class Main {
 					System.out.println("Le nombre choisi doit être compris entre 1 et 7.");
 				}
 			} while(choixOK == false);
-			
-			System.out.println(plateau);
-			joueur = (joueur == 1) ? 2 : 1; //Joueur suivant
 		}
+		System.out.println("Les deux joueurs sont à égalité.");
 		finDuJeu();
 	}
 	
@@ -97,5 +96,17 @@ public class Main {
 //			scanner.close();
 //		}		
 		return colonne;
+	}
+	
+	/**
+	 * initialise une nouvelle session de jeu
+	 */
+	public static void initGame() {
+		System.out.println("**************************");
+		System.out.println("BIENVENUE DANS PUISSANCE 4");
+		System.out.println("**************************");
+		plateau = new Plateau();		
+		joueur = 1; //joueur 1 ou joueur 2
+		System.out.println(plateau);
 	}
 }

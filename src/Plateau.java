@@ -62,9 +62,11 @@ public class Plateau {
 		int joueur = this.plateau[coordonneesLigne][coordonneesColonne];
 		for(int i = coordonneesLigne - 1; i >= 0; i--) { //On test à gauche
 			if (this.plateau[i][coordonneesColonne] == joueur) compteur++;
+			else break;
 		}
 		for(int i = coordonneesLigne + 1; i < this.plateau.length; i++) { //On test à droite
 			if (this.plateau[i][coordonneesColonne] == joueur) compteur++;
+			else break;
 		}
 		if(compteur >= 4) return true;
 		return false;
@@ -81,9 +83,11 @@ public class Plateau {
 		int joueur = this.plateau[coordonneesLigne][coordonneesColonne];
 		for(int i = coordonneesColonne - 1; i >= 0; i--) { //On test vers le haut
 			if (this.plateau[coordonneesLigne][i] == joueur) compteur++;
+			else break;
 		}
 		for(int i = coordonneesColonne + 1; i < this.plateau[coordonneesLigne].length; i++) { //On test vers le bas
 			if (this.plateau[coordonneesLigne][i] == joueur) compteur++;
+			else break;
 		}
 		if(compteur >= 4) return true;
 		return false;
@@ -102,6 +106,7 @@ public class Plateau {
 		int j = coordonneesColonne - 1;
 		while(i >= 0 && j >= 0) {
 			if (this.plateau[i][j] == joueur) compteur++;
+			else break;
 			i--;
 			j--;
 		}
@@ -109,9 +114,12 @@ public class Plateau {
 		j = coordonneesColonne + 1;
 		while(i < this.plateau.length && j < this.plateau[coordonneesLigne].length) {
 			if (this.plateau[i][j] == joueur) compteur++;
+			else break;
 			i++;
 			j++;
 		}
+		System.out.println("Debuggage de la diag :(" + coordonneesLigne + ", " + coordonneesColonne + ")");
+		System.out.println("Compteur : " + compteur);
 		if(compteur >= 4) return true;
 		return false;
 	}
@@ -129,6 +137,7 @@ public class Plateau {
 		int j = coordonneesColonne + 1;
 		while(i >= 0 && j  < this.plateau[coordonneesLigne].length) {
 			if (this.plateau[i][j] == joueur) compteur++;
+			else break;
 			i--;
 			j++;
 		}
@@ -136,6 +145,7 @@ public class Plateau {
 		j = coordonneesColonne - 1;
 		while(i < this.plateau.length && j >= 0) {
 			if (this.plateau[i][j] == joueur) compteur++;
+			else break;
 			i++;
 			j--;
 		}
@@ -150,8 +160,16 @@ public class Plateau {
 	 * @return
 	 */
 	public boolean puissance4(int coordonneesLigne, int coordonneesColonne) {
-		if(puissanceLigne(coordonneesLigne, coordonneesColonne) || puissanceColonne(coordonneesLigne, coordonneesColonne) || puissanceDiagonale2(coordonneesLigne, coordonneesColonne) || puissanceDiagonale2(coordonneesLigne, coordonneesColonne)) return true;
+		if(puissanceLigne(coordonneesLigne, coordonneesColonne) || puissanceColonne(coordonneesLigne, coordonneesColonne) || puissanceDiagonale1(coordonneesLigne, coordonneesColonne) || puissanceDiagonale2(coordonneesLigne, coordonneesColonne)) return true;
 		return false;
+	}
+	
+	
+	/**
+	 * Affiche un beau plateau dans la console
+	 */
+	public void afficherPlateau() {
+		
 	}
 	
 	/**
