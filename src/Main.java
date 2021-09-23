@@ -7,12 +7,11 @@ public class Main {
 	static int joueur;
 	
 	public static void main(String[] args) {
-		System.out.println(" ____  _   _ ___ ____ ____    _    _   _  ____ _____   _  _   \r\n"
-				+ "|  _ \\| | | |_ _/ ___/ ___|  / \\  | \\ | |/ ___| ____| | || |  \r\n"
-				+ "| |_) | | | || |\\___ \\___ \\ / _ \\ |  \\| | |   |  _|   | || |_ \r\n"
-				+ "|  __/| |_| || | ___) |__) / ___ \\| |\\  | |___| |___  |__   _|\r\n"
-				+ "|_|    \\___/|___|____/____/_/   \\_\\_| \\_|\\____|_____|    |_|  \r\n"
-				+ "                                                              ");		
+		int rep = -1;
+		do {
+			rep = menuPrincipal();
+			if(rep == 2) finDuJeu();
+		} while(rep != 1 && rep != 2);
 		initGame();
 		while(!plateau.plein()) {
 			
@@ -60,7 +59,7 @@ public class Main {
 	 * Envoi un message de remerciement avant de quitter le programme
 	 */
 	public static void finDuJeu() {
-		System.out.println("Merci d'avoir joué à Puissance 4 !\nA bientôt.");
+		System.out.println("A bientôt sur Puissance 4 !");
 		System.exit(0);
 	}
 	
@@ -117,5 +116,29 @@ public class Main {
 		plateau = new Plateau();		
 		joueur = 1; //joueur 1 ou joueur 2
 		plateau.afficherPlateau();
+	}
+	
+	/**
+	 * Affiche le menu principal du jeu
+	 * @return la réponse des joueurs
+	 */
+	public static int menuPrincipal() {
+		System.out.println(" ____  _   _ ___ ____ ____    _    _   _  ____ _____   _  _   \r\n"
+				+ "|  _ \\| | | |_ _/ ___/ ___|  / \\  | \\ | |/ ___| ____| | || |  \r\n"
+				+ "| |_) | | | || |\\___ \\___ \\ / _ \\ |  \\| | |   |  _|   | || |_ \r\n"
+				+ "|  __/| |_| || | ___) |__) / ___ \\| |\\  | |___| |___  |__   _|\r\n"
+				+ "|_|    \\___/|___|____/____/_/   \\_\\_| \\_|\\____|_____|    |_|  \r\n"
+				+ "                                                              ");
+		System.out.println("1) JOUER");
+		System.out.println("2) QUITTER");
+		int reponse = -1;
+		Scanner scanner = new Scanner(System.in);
+		try {
+			reponse = scanner.nextInt();
+		}
+		catch(InputMismatchException e) { //Excception déclenchée si le joueur entre autre chose qu'un nombre
+			System.out.println("Veuillez entrer un nombre. (1 ou 2)");
+		}
+		return reponse;
 	}
 }
