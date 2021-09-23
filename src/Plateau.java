@@ -38,6 +38,17 @@ public class Plateau {
 	}
 	
 	/**
+	 * Determin esi le plateau est rempli ou non
+	 * @return true si le plateau est plein, false sinon
+	 */
+	public boolean plein() {
+		for(int i = 0; i < this.plateau[0].length; i++) {
+			if(derniereLigneVide(i) != -1) return false;
+		}
+		return true;
+	}
+	
+	/**
 	 * Affiche le plateau de jeu
 	 */
 	public String toString() {
