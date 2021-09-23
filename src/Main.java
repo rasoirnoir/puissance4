@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Main {
 
 	
+	
 	public static void main(String[] args) {		
 		Plateau plateau = new Plateau();
 		System.out.println(plateau);
@@ -28,7 +29,11 @@ public class Main {
 					else {
 						if(ajoutPion == joueur) { //Le joueur a gagné !!!
 							System.out.println("Bravo !! Le joueur " + joueur + " a gagné !!");
-							if(!rejouer()) rejoue = false;
+							if(rejouer()) {
+								
+							}else {
+								rejoue = false;
+							}
 						}
 					}
 				}
@@ -59,18 +64,25 @@ public class Main {
 		System.out.println("Voulez-vous rejouer ?");
 		System.out.println("1 : oui");
 		System.out.println("2 : non");
+		int choix = 0;
 		Scanner scanner = new Scanner(System.in);
 		try {
-			
+			choix = scanner.nextInt();
 		}catch(InputMismatchException e) { //Excception déclenchée si le joueur entre autre chose qu'un nombre
-			System.out.println("Veuillez entrer un nombre.");
+			System.out.println("Veuillez entrer un nombre. (1 ou 2)");
 		}
-		finally {
-			scanner.close();
-		}
+//		finally {
+//			scanner.close();
+//		}
+		if(choix == 2) return false;
 		return true;
 	}
 	
+	/**
+	 * Demande au joueur de choisir une colonne
+	 * @param joueur le joueur qui doit choisir
+	 * @return Le numéro de la colonne
+	 */
 	public static int choisirColonne(int joueur) {
 		int colonne = -1;
 		System.out.println("Au tour de Joueur " + joueur + " : (choisissez une colonne entre 1 et 7)\nEntrez 0 pour quitter le jeux.");
@@ -81,9 +93,9 @@ public class Main {
 		catch(InputMismatchException e) { //Excception déclenchée si le joueur entre autre chose qu'un nombre
 			System.out.println("Veuillez entrer un nombre.");
 		}
-		finally {
-			scanner.close();
-		}		
+//		finally {
+//			scanner.close();
+//		}		
 		return colonne;
 	}
 }
