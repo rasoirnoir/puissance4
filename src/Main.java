@@ -22,10 +22,12 @@ public class Main {
 					if(ajoutPion == -1) {
 						choixOK = false;
 						System.out.println("La colonne sélectionnée est pleine.");
+						plateau.afficherPlateau();
 					}
 					else {
 						if(ajoutPion == joueur) { //Le joueur a gagné !!!
 							System.out.println("Bravo !! Le joueur " + joueur + " a gagné !!");
+							plateau.afficherPlateau();
 							if(rejouer()) {
 								initGame();
 							}else {
@@ -33,13 +35,14 @@ public class Main {
 							}
 						}
 						else { //Le joueur n'a pas encore gagné, le jeu contine
-							System.out.println(plateau);
+							plateau.afficherPlateau();
 							joueur = (joueur == 1) ? 2 : 1; //Joueur suivant
 						}
 					}
 				}
 				else {
 					System.out.println("Le nombre choisi doit être compris entre 1 et 7.");
+					plateau.afficherPlateau();
 				}
 			} while(choixOK == false);
 		}
@@ -60,20 +63,23 @@ public class Main {
 	 * @return
 	 */
 	public static boolean rejouer() {
-		System.out.println("Voulez-vous rejouer ?");
-		System.out.println("1 : oui");
-		System.out.println("2 : non");
 		int choix = 0;
-		Scanner scanner = new Scanner(System.in);
-		try {
-			choix = scanner.nextInt();
-		}catch(InputMismatchException e) { //Excception déclenchée si le joueur entre autre chose qu'un nombre
-			System.out.println("Veuillez entrer un nombre. (1 ou 2)");
-		}
-//		finally {
-//			scanner.close();
-//		}
-		if(choix == 2) return false;
+		do {
+			System.out.println("Voulez-vous rejouer ?");
+			System.out.println("1 : oui");
+			System.out.println("2 : non");
+			
+			Scanner scanner = new Scanner(System.in);
+			try {
+				choix = scanner.nextInt();
+			}catch(InputMismatchException e) { //Excception déclenchée si le joueur entre autre chose qu'un nombre
+				System.out.println("Veuillez entrer un nombre. (1 ou 2)");
+			}
+	//		finally {
+	//			scanner.close();
+	//		}
+			if(choix == 2) return false;
+		} while(!(choix == 1 || choix == 2)); //Tant que le joueur n'a pas entré 1 ou 2, on lui repose la question :)
 		return true;
 	}
 	
@@ -107,6 +113,6 @@ public class Main {
 		System.out.println("**************************");
 		plateau = new Plateau();		
 		joueur = 1; //joueur 1 ou joueur 2
-		System.out.println(plateau);
+		plateau.afficherPlateau();
 	}
 }

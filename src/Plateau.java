@@ -118,8 +118,6 @@ public class Plateau {
 			i++;
 			j++;
 		}
-		System.out.println("Debuggage de la diag :(" + coordonneesLigne + ", " + coordonneesColonne + ")");
-		System.out.println("Compteur : " + compteur);
 		if(compteur >= 4) return true;
 		return false;
 	}
@@ -169,7 +167,24 @@ public class Plateau {
 	 * Affiche un beau plateau dans la console
 	 */
 	public void afficherPlateau() {
-		
+		String output = "";
+		char blanc = '\u25CB'; //joueur 1
+		char noir = '\u25CF'; //joueur 2
+		for(int i = 0; i < this.plateau.length; i++){
+			for(int j = 0; j < this.plateau[0].length; j++) {
+				String charAffiche = " ";
+				int intAffiche = this.plateau[i][j];
+				if(intAffiche == 1) charAffiche = "" + blanc;
+				if(intAffiche == 2) charAffiche = "" + noir;
+				output += "|" + charAffiche;
+			}
+			output += "|";
+			if(i == this.plateau.length - 3) output += "\tjoueur 1 : " + blanc;
+			if(i == this.plateau.length - 2) output += "\tjoueur 2 : " + noir;
+			output += "\n";
+		}
+		output += " 1 2 3 4 5 6 7";
+		System.out.println(output);
 	}
 	
 	/**
