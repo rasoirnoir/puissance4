@@ -6,7 +6,13 @@ public class Main {
 	static Plateau plateau;
 	static int joueur;
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
+		System.out.println(" ____  _   _ ___ ____ ____    _    _   _  ____ _____   _  _   \r\n"
+				+ "|  _ \\| | | |_ _/ ___/ ___|  / \\  | \\ | |/ ___| ____| | || |  \r\n"
+				+ "| |_) | | | || |\\___ \\___ \\ / _ \\ |  \\| | |   |  _|   | || |_ \r\n"
+				+ "|  __/| |_| || | ___) |__) / ___ \\| |\\  | |___| |___  |__   _|\r\n"
+				+ "|_|    \\___/|___|____/____/_/   \\_\\_| \\_|\\____|_____|    |_|  \r\n"
+				+ "                                                              ");		
 		initGame();
 		while(!plateau.plein()) {
 			
@@ -108,9 +114,6 @@ public class Main {
 	 * initialise une nouvelle session de jeu
 	 */
 	public static void initGame() {
-		System.out.println("**************************");
-		System.out.println("BIENVENUE DANS PUISSANCE 4");
-		System.out.println("**************************");
 		plateau = new Plateau();		
 		joueur = 1; //joueur 1 ou joueur 2
 		plateau.afficherPlateau();
