@@ -49,6 +49,98 @@ public class Plateau {
 	}
 	
 	/**
+	 * Determine si un puissance 4 existe sur une ligne a partir d'un pion
+	 * @param coordonneesLigne La ligne du pion
+	 * @param coordonneesColonne La colonne du pion
+	 * @return true si il y a puissance 4, false sinon
+	 */
+	private boolean puissanceLigne(int coordonneesLigne, int coordonneesColonne) {
+		int compteur = 1; //Le pion de depart. Si il arrive à 4, c'est gagné
+		int joueur = this.plateau[coordonneesLigne][coordonneesColonne];
+		for(int i = coordonneesLigne - 1; i >= 0; i--) { //On test à gauche
+			if (this.plateau[i][coordonneesColonne] == joueur) compteur++;
+		}
+		for(int i = coordonneesLigne + 1; i < this.plateau[i].length; i++) { //On test à droite
+			if (this.plateau[i][coordonneesColonne] == joueur) compteur++;
+		}
+		if(compteur >= 4) return true;
+		return false;
+	}
+	
+	/**
+	 * Determine si un puissance 4 existe sur une colonne à partir d'un pion
+	 * @param coordonneesLigne La ligne du pion
+	 * @param coordonneesColonne La colonne du pion
+	 * @return true si il y a puissance 4, false sinon
+	 */
+	private boolean puissanceColonne(int coordonneesLigne, int coordonneesColonne) {
+		int compteur = 1; //Le pion de depart. Si il arrive à 4, c'est gagné
+		int joueur = this.plateau[coordonneesLigne][coordonneesColonne];
+		for(int i = coordonneesColonne - 1; i >= 0; i--) { //On test vers le haut
+			if (this.plateau[coordonneesLigne][i] == joueur) compteur++;
+		}
+		for(int i = coordonneesColonne + 1; i < this.plateau[i].length; i++) { //On test vers le bas
+			if (this.plateau[coordonneesLigne][i] == joueur) compteur++;
+		}
+		if(compteur >= 4) return true;
+		return false;
+	}
+	
+	/**
+	 * Determine si une puissance 4 existe dans la première diagonale à partir d'un pion
+	 * @param coordonneesLigne La ligne du pion
+	 * @param coordonneesColonne La colonne du pion
+	 * @return true si puissance 4, false sinon
+	 */
+	private boolean puissanceDiagonale1(int coordonneesLigne, int coordonneesColonne){
+		int compteur = 1; //Le pion de depart. Si il arrive à 4, c'est gagné
+		int joueur = this.plateau[coordonneesLigne][coordonneesColonne];
+		int i = coordonneesLigne - 1;
+		int j = coordonneesColonne - 1;
+		while(i >= 0 && j >= 0) {
+			if (this.plateau[i][j] == joueur) compteur++;
+			i--;
+			j--;
+		}
+		i = coordonneesLigne + 1;
+		j = coordonneesColonne + 1;
+		while(i < this.plateau.length && j < this.plateau[coordonneesLigne].length) {
+			if (this.plateau[i][j] == joueur) compteur++;
+			i++;
+			j++;
+		}
+		if(compteur >= 4) return true;
+		return false;
+	}
+	
+	/**
+	 * Determine si une puissance 4 existe dans la deuxième diagonale à partir d'un pion
+	 * @param coordonneesLigne La ligne du pion
+	 * @param coordonneesColonne La colonne du pion
+	 * @return true si puissance 4, false sinon
+	 */
+	private boolean puissanceDiagonale2(int coordonneesLigne, int coordonneesColonne){
+		int compteur = 1; //Le pion de depart. Si il arrive à 4, c'est gagné
+		int joueur = this.plateau[coordonneesLigne][coordonneesColonne];
+		int i = coordonneesLigne - 1;
+		int j = coordonneesColonne + 1;
+		while(i >= 0 && j  < this.plateau[coordonneesLigne].length) {
+			if (this.plateau[i][j] == joueur) compteur++;
+			i--;
+			j++;
+		}
+		i = coordonneesLigne + 1;
+		j = coordonneesColonne - 1;
+		while(i < this.plateau.length && j >= 0) {
+			if (this.plateau[i][j] == joueur) compteur++;
+			i++;
+			j--;
+		}
+		if(compteur >= 4) return true;
+		return false;
+	}
+	
+	/**
 	 * Affiche le plateau de jeu
 	 */
 	public String toString() {
