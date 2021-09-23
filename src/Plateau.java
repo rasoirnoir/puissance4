@@ -13,16 +13,19 @@ public class Plateau {
 	}
 	
 	/**
-	 * Ajoute un pion au plateau lorsqu'un joueur le joue
+	 * Ajoute un pion au plateau lorsqu'un joueur le joue et vérifie si il gagne
 	 * @param joueur Le joueur qui joue (1 ou 2)
 	 * @param colonne La colonne dans laquelle le joueur joue le pion (Le joueur choisira entre 1 et 7, donc il faut remettre entre 0 et 6 pour le système
+	 * @return -1 si le pion n'a pas été ajouté, 0 si l epion a été ajouté mais le joueur ne gagne pas, le numéro du joueur si le pion a été ajouté et que le joueur gagne
 	 */
-	public boolean ajouterPion(int joueur, int colonne) {
+	public int ajouterPion(int joueur, int colonne) {
 		colonne--;
 		int derniereLigneVide = this.derniereLigneVide(colonne);
-		if (derniereLigneVide == -1) return false;
+		if (derniereLigneVide == -1) return -1;
 		this.plateau[derniereLigneVide][colonne] = joueur;
-		return true;
+		boolean victoire = puissance4(derniereLigneVide, colonne);
+		if(victoire) return joueur;
+		return 0;
 	}
 	
 	/**
@@ -60,7 +63,7 @@ public class Plateau {
 		for(int i = coordonneesLigne - 1; i >= 0; i--) { //On test à gauche
 			if (this.plateau[i][coordonneesColonne] == joueur) compteur++;
 		}
-		for(int i = coordonneesLigne + 1; i < this.plateau[i].length; i++) { //On test à droite
+		for(int i = coordonneesLigne + 1; i < this.plateau.length; i++) { //On test à droite
 			if (this.plateau[i][coordonneesColonne] == joueur) compteur++;
 		}
 		if(compteur >= 4) return true;
@@ -79,7 +82,7 @@ public class Plateau {
 		for(int i = coordonneesColonne - 1; i >= 0; i--) { //On test vers le haut
 			if (this.plateau[coordonneesLigne][i] == joueur) compteur++;
 		}
-		for(int i = coordonneesColonne + 1; i < this.plateau[i].length; i++) { //On test vers le bas
+		for(int i = coordonneesColonne + 1; i < this.plateau[coordonneesLigne].length; i++) { //On test vers le bas
 			if (this.plateau[coordonneesLigne][i] == joueur) compteur++;
 		}
 		if(compteur >= 4) return true;
@@ -137,6 +140,17 @@ public class Plateau {
 			j--;
 		}
 		if(compteur >= 4) return true;
+		return false;
+	}
+	
+	/**
+	 * Determine si il y a puissance 4 !!
+	 * @param coordonneesLigne Ligne du dernier pion joué
+	 * @param coordonneesColonne Colonne du dernier pion joué
+	 * @return
+	 */
+	public boolean puissance4(int coordonneesLigne, int coordonneesColonne) {
+		if(puissanceLigne(coordonneesLigne, coordonneesColonne) || puissanceColonne(coordonneesLigne, coordonneesColonne) || puissanceDiagonale2(coordonneesLigne, coordonneesColonne) || puissanceDiagonale2(coordonneesLigne, coordonneesColonne)) return true;
 		return false;
 	}
 	
