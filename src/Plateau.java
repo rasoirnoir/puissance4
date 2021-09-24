@@ -30,6 +30,16 @@ public class Plateau {
 	}
 	
 	/**
+	 * Determine si une colonne est jouable ou non
+	 * @param colonne La colonne à tester
+	 * @return true si la colonne est jouable, false si la colone est pleine
+	 */
+	public boolean colonneJouable(int colonne) {
+		if(derniereLigneVide(colonne) == -1) return false;
+		return true;
+	}
+	
+	/**
 	 * Renvoie l'indice de la dernière ligne vide d'une colonne
 	 * @param colonne La colonne dans laquelle chercher
 	 * @return L'indice de la dernière ligne vide, -1 si la colonne est pleine

@@ -12,53 +12,11 @@ public class Main {
 		joueurs = new HashMap<Integer, String>();
 		joueurs.put(1, "joueur 1");
 		joueurs.put(2, "joueur 2");
-		int rep = -1;
-		do {
-			rep = menuPrincipal();
-			if(rep == 2) finDuJeu();
-		} while(rep != 1 && rep != 2);
+		
+		menuPrincipal();
 		nomJoueurs();
 		initGame();
-		while(!plateau.plein()) {
-			
-			int colonneChoisie = -1;
-			boolean choixOK = false;
-			
-			do {
-				colonneChoisie = choisirColonne(joueur);
-				if(0 <= colonneChoisie && colonneChoisie <= 7) {
-					choixOK = true;
-					if(colonneChoisie == 0) finDuJeu();
-					int ajoutPion = plateau.ajouterPion(joueur, colonneChoisie);
-					if(ajoutPion == -1) {
-						choixOK = false;
-						System.out.println("La colonne sélectionnée est pleine.");
-						plateau.afficherPlateau(joueurs);
-					}
-					else {
-						if(ajoutPion == joueur) { //Le joueur a gagné !!!
-							plateau.afficherPlateau(joueurs);
-							System.out.println("Bravo !! " + joueurs.get(joueur) + " a gagné !!");
-							if(rejouer()) {
-								initGame();
-							}else {
-								finDuJeu();
-							}
-						}
-						else { //Le joueur n'a pas encore gagné, le jeu contine
-							plateau.afficherPlateau(joueurs);
-							joueur = (joueur == 1) ? 2 : 1; //Joueur suivant
-						}
-					}
-				}
-				else {
-					System.out.println("Le nombre choisi doit être compris entre 1 et 7.");
-					plateau.afficherPlateau(joueurs);
-				}
-			} while(choixOK == false);
-		}
-		System.out.println("Les deux joueurs sont à égalité.");
-		finDuJeu();
+		boucleJeu();
 	}
 	
 	/**
@@ -103,7 +61,7 @@ public class Main {
 	 * @param joueur le joueur qui doit choisir
 	 * @return Le numéro de la colonne
 	 */
-	public static int choisirColonne(int joueur) {
+	public static int choisirColonne() {
 		int colonne = -1;
 		System.out.println();
 		System.out.println("Au tour de " + joueurs.get(joueur));
@@ -113,7 +71,7 @@ public class Main {
 		try {
 			colonne = scanner.nextInt();
 		}
-		catch(InputMismatchException e) { //Excception déclenchée si le joueur entre autre chose qu'un nombre
+		catch(InputMismatchException e) { //Exception déclenchée si le joueur entre autre chose qu'un nombre
 			System.out.println("Veuillez entrer un nombre.");
 		}
 //		finally {
@@ -135,24 +93,28 @@ public class Main {
 	 * Affiche le menu principal du jeu
 	 * @return la réponse des joueurs
 	 */
-	public static int menuPrincipal() {
-		System.out.println(" ____  _   _ ___ ____ ____    _    _   _  ____ _____   _  _   \r\n"
-				+ "|  _ \\| | | |_ _/ ___/ ___|  / \\  | \\ | |/ ___| ____| | || |  \r\n"
-				+ "| |_) | | | || |\\___ \\___ \\ / _ \\ |  \\| | |   |  _|   | || |_ \r\n"
-				+ "|  __/| |_| || | ___) |__) / ___ \\| |\\  | |___| |___  |__   _|\r\n"
-				+ "|_|    \\___/|___|____/____/_/   \\_\\_| \\_|\\____|_____|    |_|  \r\n"
-				+ "                                                              ");
-		System.out.println("1) JOUER");
-		System.out.println("2) QUITTER");
+	public static void menuPrincipal() {
 		int reponse = -1;
-		Scanner scanner = new Scanner(System.in);
-		try {
-			reponse = scanner.nextInt();
-		}
-		catch(InputMismatchException e) { //Exception déclenchée si le joueur entre autre chose qu'un nombre
-			System.out.println("Veuillez entrer un nombre. (1 ou 2)");
-		}
-		return reponse;
+		System.out.println();
+		do {
+			System.out.println(" ____  _   _ ___ ____ ____    _    _   _  ____ _____   _  _   \r\n"
+					+ "|  _ \\| | | |_ _/ ___/ ___|  / \\  | \\ | |/ ___| ____| | || |  \r\n"
+					+ "| |_) | | | || |\\___ \\___ \\ / _ \\ |  \\| | |   |  _|   | || |_ \r\n"
+					+ "|  __/| |_| || | ___) |__) / ___ \\| |\\  | |___| |___  |__   _|\r\n"
+					+ "|_|    \\___/|___|____/____/_/   \\_\\_| \\_|\\____|_____|    |_|  \r\n"
+					+ "                                                              ");
+			System.out.println("1) JOUER");
+			System.out.println("2) QUITTER");
+			
+			Scanner scanner = new Scanner(System.in);
+			try {
+				reponse = scanner.nextInt();
+			}
+			catch(InputMismatchException e) { //Exception déclenchée si le joueur entre autre chose qu'un nombre
+				System.out.println("Veuillez entrer un nombre. (1 ou 2)");
+			}
+			if(reponse == 2) finDuJeu();
+		} while(reponse != 1 && reponse != 2);
 	}
 	
 	/**
@@ -176,5 +138,54 @@ public class Main {
 		}finally {}
 		reponse = reponse.equals("") ? "joueur 2" : reponse;
 		joueurs.replace(2, reponse);
+	}
+	
+	public static void boucleJeu() {
+		while(true) {
+			
+			int colonneChoisie = -1;
+			boolean choixOK = false;
+			
+			do {
+				colonneChoisie = choisirColonne();
+				if(colonneChoisie == 0) finDuJeu();
+				if(0 < colonneChoisie && colonneChoisie <= 7) {
+					if(plateau.colonneJouable(colonneChoisie - 1)) choixOK = true;
+					else {
+						System.out.println("La colonne sélectionnée est pleine.");
+						plateau.afficherPlateau(joueurs);
+					}
+				}
+				else {
+					System.out.println("Le nombre choisi doit être compris entre 1 et 7.");
+					plateau.afficherPlateau(joueurs);
+				}
+			} while(choixOK == false);
+			
+			int ajoutPion = plateau.ajouterPion(joueur, colonneChoisie);
+			
+			if(ajoutPion == joueur) { //Le joueur a gagné !!!
+				plateau.afficherPlateau(joueurs);
+				System.out.println("Bravo !! " + joueurs.get(joueur) + " a gagné !!");
+				if(rejouer()) {
+					initGame();
+				}else {
+					finDuJeu();
+				}
+			}
+			else { //Le joueur n'a pas encore gagné, le jeu contine
+				plateau.afficherPlateau(joueurs);
+				joueur = (joueur == 1) ? 2 : 1; //Joueur suivant
+			}
+			if(plateau.plein()) {
+				System.out.println();
+				System.out.println("Les deux joueurs sont à égalité.");
+				if(rejouer()) {
+					initGame();
+				}else {
+					finDuJeu();
+				}
+			}
+		}	
 	}
 }
