@@ -178,7 +178,7 @@ public class Plateau {
 	 * Affiche un beau plateau dans la console
 	 */
 	public void afficherPlateau(HashMap<Integer, String> nomJoueurs) {
-		String output = "";
+		String output = "\n";
 		char blanc = '\u25CB'; //joueur 1
 		char noir = '\u25CF'; //joueur 2
 		for(int i = 0; i < this.plateau.length; i++){

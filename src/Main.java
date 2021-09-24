@@ -32,7 +32,7 @@ public class Main {
 	
 	/**
 	 * Demande aux joueurs s'ils veulent rejouer
-	 * @return
+	 * @return true si le joueur entre un choix valide
 	 */
 	public static boolean rejouer() {
 		int choix = 0;
@@ -59,24 +59,42 @@ public class Main {
 	/**
 	 * Demande au joueur de choisir une colonne
 	 * @param joueur le joueur qui doit choisir
-	 * @return Le numéro de la colonne
+	 * @return Le numéro de la colonne que le joueur a choisi
 	 */
 	public static int choisirColonne() {
 		int colonne = -1;
-		System.out.println();
-		System.out.println("Au tour de " + joueurs.get(joueur));
-		System.out.println("Choisissez une colonne (1 à 7)");
-		System.out.println("(0 pour quitter)");
-		Scanner scanner = new Scanner(System.in);
-		try {
-			colonne = scanner.nextInt();
-		}
-		catch(InputMismatchException e) { //Exception déclenchée si le joueur entre autre chose qu'un nombre
-			System.out.println("Veuillez entrer un nombre.");
-		}
-//		finally {
-//			scanner.close();
-//		}		
+		boolean choixOK = false;
+		do {
+			System.out.println();
+			System.out.println("Au tour de " + joueurs.get(joueur));
+			System.out.println("Choisissez une colonne (1 à 7)");
+			System.out.println("(0 pour quitter)");
+			Scanner scanner = new Scanner(System.in);
+			try {
+				colonne = scanner.nextInt();
+			}
+			catch(InputMismatchException e) { //Exception déclenchée si le joueur entre autre chose qu'un nombre
+				System.out.println("Veuillez entrer un nombre.");
+			}
+	//		finally {
+	//			scanner.close();
+	//		}
+		
+			if(colonne == 0) finDuJeu();
+			if(0 < colonne && colonne <= 7) {
+				if(plateau.colonneJouable(colonne - 1)) choixOK = true;
+				else {
+					System.out.println("La colonne sélectionnée est pleine.");
+					plateau.afficherPlateau(joueurs);
+				}
+			}
+			else {
+				System.out.println("Le nombre choisi doit être compris entre 1 et 7.");
+				plateau.afficherPlateau(joueurs);
+			}
+		} while(choixOK == false);
+		
+		
 		return colonne;
 	}
 	
@@ -140,27 +158,15 @@ public class Main {
 		joueurs.replace(2, reponse);
 	}
 	
+	/**
+	 * La boucle principale du jeu
+	 */
 	public static void boucleJeu() {
 		while(true) {
 			
 			int colonneChoisie = -1;
-			boolean choixOK = false;
 			
-			do {
-				colonneChoisie = choisirColonne();
-				if(colonneChoisie == 0) finDuJeu();
-				if(0 < colonneChoisie && colonneChoisie <= 7) {
-					if(plateau.colonneJouable(colonneChoisie - 1)) choixOK = true;
-					else {
-						System.out.println("La colonne sélectionnée est pleine.");
-						plateau.afficherPlateau(joueurs);
-					}
-				}
-				else {
-					System.out.println("Le nombre choisi doit être compris entre 1 et 7.");
-					plateau.afficherPlateau(joueurs);
-				}
-			} while(choixOK == false);
+			colonneChoisie = choisirColonne();
 			
 			int ajoutPion = plateau.ajouterPion(joueur, colonneChoisie);
 			
