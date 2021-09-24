@@ -37,8 +37,8 @@ public class Main {
 					}
 					else {
 						if(ajoutPion == joueur) { //Le joueur a gagné !!!
-							System.out.println("Bravo !! Le joueur " + joueurs.get(joueur) + " a gagné !!");
 							plateau.afficherPlateau(joueurs);
+							System.out.println("Bravo !! " + joueurs.get(joueur) + " a gagné !!");
 							if(rejouer()) {
 								initGame();
 							}else {
@@ -65,7 +65,10 @@ public class Main {
 	 * Envoi un message de remerciement avant de quitter le programme
 	 */
 	public static void finDuJeu() {
-		System.out.println("A bientôt sur Puissance 4 !");
+		System.out.println();
+		System.out.println("*******************************");
+		System.out.println("* A bientôt sur Puissance 4 ! *");
+		System.out.println("*******************************");
 		System.exit(0);
 	}
 	
@@ -76,6 +79,7 @@ public class Main {
 	public static boolean rejouer() {
 		int choix = 0;
 		do {
+			System.out.println();
 			System.out.println("Voulez-vous rejouer ?");
 			System.out.println("1 : oui");
 			System.out.println("2 : non");
@@ -101,6 +105,7 @@ public class Main {
 	 */
 	public static int choisirColonne(int joueur) {
 		int colonne = -1;
+		System.out.println();
 		System.out.println("Au tour de " + joueurs.get(joueur));
 		System.out.println("Choisissez une colonne (1 à 7)");
 		System.out.println("(0 pour quitter)");
@@ -154,6 +159,7 @@ public class Main {
 	 * Demande aux joueurs leur nom et l'enregistre dans le jeu
 	 */
 	public static void nomJoueurs() {
+		System.out.println();
 		System.out.println("Entrez le nom du joueur 1 (joueur 1):");
 		String reponse = "joueur 1";
 		Scanner scanner = new Scanner(System.in);
