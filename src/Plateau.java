@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 public class Plateau {
 	
@@ -166,7 +167,7 @@ public class Plateau {
 	/**
 	 * Affiche un beau plateau dans la console
 	 */
-	public void afficherPlateau() {
+	public void afficherPlateau(HashMap nomJoueurs) {
 		String output = "";
 		char blanc = '\u25CB'; //joueur 1
 		char noir = '\u25CF'; //joueur 2
@@ -179,8 +180,8 @@ public class Plateau {
 				output += "|" + charAffiche;
 			}
 			output += "|";
-			if(i == this.plateau.length - 3) output += "\tjoueur 1 : " + blanc;
-			if(i == this.plateau.length - 2) output += "\tjoueur 2 : " + noir;
+			if(i == this.plateau.length - 3) output += "\t" + nomJoueurs.get(1) + " : " + blanc;
+			if(i == this.plateau.length - 2) output += "\t" + nomJoueurs.get(2) + " : " + noir;
 			output += "\n";
 		}
 		output += " 1 2 3 4 5 6 7";

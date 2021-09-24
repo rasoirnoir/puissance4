@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -5,13 +6,18 @@ public class Main {
 
 	static Plateau plateau;
 	static int joueur;
+	static HashMap<Integer, String> joueurs; //Mapping du nom des joueurs. On pourra récupérer le nom des joueurs grâce à joueurs.get(joueur)
 	
 	public static void main(String[] args) {
+		joueurs = new HashMap<Integer, String>();
+		joueurs.put(1, "joueur 1");
+		joueurs.put(2, "joueur 2");
 		int rep = -1;
 		do {
 			rep = menuPrincipal();
 			if(rep == 2) finDuJeu();
 		} while(rep != 1 && rep != 2);
+		nomJoueurs();
 		initGame();
 		while(!plateau.plein()) {
 			
@@ -27,12 +33,12 @@ public class Main {
 					if(ajoutPion == -1) {
 						choixOK = false;
 						System.out.println("La colonne sélectionnée est pleine.");
-						plateau.afficherPlateau();
+						plateau.afficherPlateau(joueurs);
 					}
 					else {
 						if(ajoutPion == joueur) { //Le joueur a gagné !!!
-							System.out.println("Bravo !! Le joueur " + joueur + " a gagné !!");
-							plateau.afficherPlateau();
+							System.out.println("Bravo !! Le joueur " + joueurs.get(joueur) + " a gagné !!");
+							plateau.afficherPlateau(joueurs);
 							if(rejouer()) {
 								initGame();
 							}else {
@@ -40,14 +46,14 @@ public class Main {
 							}
 						}
 						else { //Le joueur n'a pas encore gagné, le jeu contine
-							plateau.afficherPlateau();
+							plateau.afficherPlateau(joueurs);
 							joueur = (joueur == 1) ? 2 : 1; //Joueur suivant
 						}
 					}
 				}
 				else {
 					System.out.println("Le nombre choisi doit être compris entre 1 et 7.");
-					plateau.afficherPlateau();
+					plateau.afficherPlateau(joueurs);
 				}
 			} while(choixOK == false);
 		}
@@ -95,7 +101,9 @@ public class Main {
 	 */
 	public static int choisirColonne(int joueur) {
 		int colonne = -1;
-		System.out.println("Au tour de Joueur " + joueur + " : (choisissez une colonne entre 1 et 7)\nEntrez 0 pour quitter le jeux.");
+		System.out.println("Au tour de " + joueurs.get(joueur));
+		System.out.println("Choisissez une colonne (1 à 7)");
+		System.out.println("(0 pour quitter)");
 		Scanner scanner = new Scanner(System.in);
 		try {
 			colonne = scanner.nextInt();
@@ -115,7 +123,7 @@ public class Main {
 	public static void initGame() {
 		plateau = new Plateau();		
 		joueur = 1; //joueur 1 ou joueur 2
-		plateau.afficherPlateau();
+		plateau.afficherPlateau(joueurs);
 	}
 	
 	/**
@@ -136,9 +144,31 @@ public class Main {
 		try {
 			reponse = scanner.nextInt();
 		}
-		catch(InputMismatchException e) { //Excception déclenchée si le joueur entre autre chose qu'un nombre
+		catch(InputMismatchException e) { //Exception déclenchée si le joueur entre autre chose qu'un nombre
 			System.out.println("Veuillez entrer un nombre. (1 ou 2)");
 		}
 		return reponse;
+	}
+	
+	/**
+	 * Demande aux joueurs leur nom et l'enregistre dans le jeu
+	 */
+	public static void nomJoueurs() {
+		System.out.println("Entrez le nom du joueur 1 (joueur 1):");
+		String reponse = "joueur 1";
+		Scanner scanner = new Scanner(System.in);
+		try {
+			reponse = scanner.nextLine();
+		}finally {}
+		reponse = reponse.equals("") ? "joueur 1" : reponse;
+		joueurs.replace(1, reponse);
+		
+		System.out.println("Entrez le nom du jouer 2 (joueur 2):");
+		reponse = "joueur 2";
+		try {
+			reponse = scanner.nextLine();
+		}finally {}
+		reponse = reponse.equals("") ? "joueur 2" : reponse;
+		joueurs.replace(2, reponse);
 	}
 }
