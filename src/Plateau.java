@@ -167,7 +167,7 @@ public class Plateau {
 	/**
 	 * Affiche un beau plateau dans la console
 	 */
-	public void afficherPlateau(HashMap nomJoueurs) {
+	public void afficherPlateau(HashMap<Integer, String> nomJoueurs) {
 		String output = "";
 		char blanc = '\u25CB'; //joueur 1
 		char noir = '\u25CF'; //joueur 2
