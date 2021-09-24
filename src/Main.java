@@ -126,8 +126,8 @@ public class Main {
 	 * initialise une nouvelle session de jeu
 	 */
 	public static void initGame() {
-		plateau = new Plateau();		
-		joueur = 1; //joueur 1 ou joueur 2
+		plateau = new Plateau();	
+		joueur = (int) Math.round(Math.random() + 1); //On determie aléatoirement quel joueur commence.
 		plateau.afficherPlateau(joueurs);
 	}
 	
