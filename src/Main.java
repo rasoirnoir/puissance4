@@ -82,6 +82,7 @@ public class Main {
 		
 			if(colonne == 0) finDuJeu();
 			if(0 < colonne && colonne <= 7) {
+				//On vérifie que la colonne ne soit pas pleine
 				if(plateau.colonneJouable(colonne - 1)) choixOK = true;
 				else {
 					System.out.println("La colonne sélectionnée est pleine.");
@@ -92,7 +93,7 @@ public class Main {
 				System.out.println("Le nombre choisi doit être compris entre 1 et 7.");
 				plateau.afficherPlateau(joueurs);
 			}
-		} while(choixOK == false);
+		} while(choixOK == false); //On boucle tant que le joueur n'a pas donné une réponse correcte
 		
 		
 		return colonne;
@@ -132,7 +133,7 @@ public class Main {
 				System.out.println("Veuillez entrer un nombre. (1 ou 2)");
 			}
 			if(reponse == 2) finDuJeu();
-		} while(reponse != 1 && reponse != 2);
+		} while(reponse != 1 && reponse != 2); //On boucle tant que le joueur n'a pas donné de réponse correcte
 	}
 	
 	/**
@@ -146,6 +147,7 @@ public class Main {
 		try {
 			reponse = scanner.nextLine();
 		}finally {}
+		//Si le joueur appuie sur Entrée sans tapper de nom, on lui donne le nom joueur 1 par défaut
 		reponse = reponse.equals("") ? "joueur 1" : reponse;
 		joueurs.replace(1, reponse);
 		
@@ -163,7 +165,7 @@ public class Main {
 	 */
 	public static void boucleJeu() {
 		while(true) {
-			
+			//La seule façon de sortir de cette boucle est un choix volontaire de la part des joueurs d'arrêter de jouer
 			int colonneChoisie = -1;
 			
 			colonneChoisie = choisirColonne();

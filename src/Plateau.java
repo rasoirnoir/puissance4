@@ -1,9 +1,21 @@
 import java.util.HashMap;
 
+/**
+ * Gère le plateau du jeu Puissance 4.
+ * Ce plateau est représenté par un tableau à 2 dimensions contenant des 0 pour le cases vides,
+ * des 1 pour les pions du joueur 1, et des 2 pour les pions du joueur 2
+ * Cette classe est résponsable de l'ajout des pions sur le plateau, ce qui déclenche automatiquement 
+ * la vérification des conditions de victoire (4 pions identiques alignés)
+ * @author William Noris
+ *
+ */
 public class Plateau {
 	
 	private int[][] plateau;
 	
+	/**
+	 * initialise un plateau de jeu vide
+	 */
 	public Plateau() {
 		plateau = new int[6][7];
 		for(int i = 0; i < plateau.length; i++){
@@ -14,6 +26,16 @@ public class Plateau {
 	}
 	
 	/**
+	 * Le tableau à 2 dimensions qui représente le plateau de jeu
+	 * Ce plateau est en lecture seule, donc pas de setter
+	 * @return Le tableau à 2 dimensions représentant le plateau de jeu
+	 */
+	public int[][] getPlateau() {
+		return this.plateau;
+	}
+
+	
+	/**
 	 * Ajoute un pion au plateau lorsqu'un joueur le joue et vérifie si il gagne
 	 * @param joueur Le joueur qui joue (1 ou 2)
 	 * @param colonne La colonne dans laquelle le joueur joue le pion (Le joueur choisira entre 1 et 7, donc il faut remettre entre 0 et 6 pour le système
@@ -21,10 +43,11 @@ public class Plateau {
 	 */
 	public int ajouterPion(int joueur, int colonne) {
 		colonne--;
+		//On récupère l'indice de la dernière ligne vide
 		int derniereLigneVide = this.derniereLigneVide(colonne);
-		if (derniereLigneVide == -1) return -1;
+		if (derniereLigneVide == -1) return -1; //Cette condition est remplie si la colonne est pleine
 		this.plateau[derniereLigneVide][colonne] = joueur;
-		boolean victoire = puissance4(derniereLigneVide, colonne);
+		boolean victoire = puissance4(derniereLigneVide, colonne); //Après avoir ajouté le pion, on vérifie si les conditions de victoire sont remplies
 		if(victoire) return joueur;
 		return 0;
 	}
@@ -57,6 +80,7 @@ public class Plateau {
 	 */
 	public boolean plein() {
 		for(int i = 0; i < this.plateau[0].length; i++) {
+			//On parcours toutes les colonnes du tableau et vérifie si elles sont pleine
 			if(derniereLigneVide(i) != -1) return false;
 		}
 		return true;
@@ -115,6 +139,7 @@ public class Plateau {
 		int joueur = this.plateau[coordonneesLigne][coordonneesColonne];
 		int i = coordonneesLigne - 1;
 		int j = coordonneesColonne - 1;
+		//On cherche les pions adjacents en haut à gauche
 		while(i >= 0 && j >= 0) {
 			if (this.plateau[i][j] == joueur) compteur++;
 			else break;
@@ -123,6 +148,7 @@ public class Plateau {
 		}
 		i = coordonneesLigne + 1;
 		j = coordonneesColonne + 1;
+		//On cherche les pions adjacents en bas à droite
 		while(i < this.plateau.length && j < this.plateau[coordonneesLigne].length) {
 			if (this.plateau[i][j] == joueur) compteur++;
 			else break;
@@ -144,6 +170,7 @@ public class Plateau {
 		int joueur = this.plateau[coordonneesLigne][coordonneesColonne];
 		int i = coordonneesLigne - 1;
 		int j = coordonneesColonne + 1;
+		//On cherche les pions adjacents en haut à droite
 		while(i >= 0 && j  < this.plateau[coordonneesLigne].length) {
 			if (this.plateau[i][j] == joueur) compteur++;
 			else break;
@@ -152,6 +179,7 @@ public class Plateau {
 		}
 		i = coordonneesLigne + 1;
 		j = coordonneesColonne - 1;
+		//On cherche les pions adjacents en bas à gauche
 		while(i < this.plateau.length && j >= 0) {
 			if (this.plateau[i][j] == joueur) compteur++;
 			else break;
