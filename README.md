@@ -40,7 +40,6 @@ A sa création, le constructeur initialise un tableau vide :
 Cette classe est aussi résponsable de diverse actions telle que :
 
 1. Afficher le plateau au joueurs à l'aide de la méthode :
-
     ```java
     public void afficherPlateau(HashMap<Integer, String> nomJoueurs)
     ```
@@ -48,5 +47,25 @@ Cette classe est aussi résponsable de diverse actions telle que :
     ```java
     public boolean plein()
     ```
-3. Permettre à un joueur de jouer un pion
-  1
+3. Permettre à un joueur de jouer un pion dans une colonne :
+    ```java
+    public int ajouterPion(int joueur, int colonne)
+    ```
+    Le pion est ajouté après avoir déterminé quelle est la dernière ligne vide grâce à la méthode :
+    ```java
+    private int derniereLigneVide(int colonne)
+    ```
+    Une méthode est aussi disponible pour savoir si une colonne est pleine :
+    ```java
+    public boolean colonneJouable(int colonne)
+    ```
+4. Détecter un puissance 4 :
+    ```java
+    public boolean puissance4(int coordonneesLigne, int coordonneesColonne)
+    ```
+    Cette méthode nécessite les coordonnées du dernier pion ajouté dans le plateau.
+    La méthode détecte l'alignement de 4 pions à partir de celui-ci.
+    Cette détection s'effectue en 4 partie :
+      - En ligne
+      - En colonne
+      - Dans les 2 diagonales
