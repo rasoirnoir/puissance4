@@ -84,15 +84,19 @@ java Main
 ## Exemple d'utilisation
 
 ![alt text](md-imgs/Accueil.PNG "Menu d'accueil")
+
 Entrez 1 puis pressez Entrée pour jouer.
 
 ![alt text](md-imgs/nomJoueurs.PNG "Nom des joueurs")
+
 Entrez le nom des joueurs puis pressez Entrée.
 
 ![alt text](md-imgs/ChoixColonne.PNG "Choix colonne")
+
 Entrez le numéro de la colonne dans laquelle vous voulez jouer, puis pressez Entrée.
 
 Recommencez l'opération jusqu'à ce qu'un joueur gagne, ou que le plateau soit plein.
 
 ![alt text](md-imgs/victoireRejouer.PNG "Rejouer")
+
 Entrez 1 si vous voulez rejouer, 0 pour quitter le programme. Puis pressez Entrée.
