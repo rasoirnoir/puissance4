@@ -75,8 +75,8 @@ Cette classe est aussi résponsable de diverse actions telle que :
 La classe GameMenus fournie une série de méthodes static pour afficher les menus aux joueurs
 et gérer les entrées utilisateurs pour répondre aux questions
 
-La classe GameData contient les variables globales nécessaires au fonctionnement du jeu, ainsi que déterminer aléatoirement
-lequel des joueurs commence :
+La classe GameData contient les variables globales nécessaires au fonctionnement du jeu détermine aléatoirement
+quel joueur commence :
 - Le plateau de jeu 
     ```java 
     static private Plateau plateau;
