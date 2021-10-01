@@ -1,27 +1,26 @@
-# PUISSANCE 4 (En ligne de commande)
+# <a id="puissance-4-en-ligne-de-commande"></a>PUISSANCE 4 (En ligne de commande)
 
 - [PUISSANCE 4 (En ligne de commande)](#puissance-4-en-ligne-de-commande)
   - [Présentation du jeu](#présentation-du-jeu)
-  - [Présentation technique](#présentation-technique)
+  - [Présentation technique](#presentation-technique)
   - [Notice d'utilisation](#notice-d'utilisation)
   - [Exemple d'utilisation](#exemple-d'utilisation)
 
-## Présentation du jeu
+## <a id="présentation-du-jeu"></a>Présentation du jeu
 
 Le but du jeu est d'aligner une suite de 4 pions de même couleur sur une grille comptant 6 rangées et 7 colonnes. Chaque joueur dispose de 21 pions d'une couleur (par convention, en général jaune ou rouge). Tour à tour, les deux joueurs placent un pion dans la colonne de leur choix, le pion coulisse alors jusqu'à la position la plus basse possible dans la dite colonne à la suite de quoi c'est à l'adversaire de jouer. Le vainqueur est le joueur qui réalise le premier un alignement (horizontal, vertical ou diagonal) consécutif d'au moins quatre pions de sa couleur. Si, alors que toutes les cases de la grille de jeu sont remplies, aucun des deux joueurs n'a réalisé un tel alignement, la partie est déclarée nulle. 
 >source : https://fr.wikipedia.org/wiki/Puissance_4
 
 
-## Présentation technique
+## <a id="presentation-technique"></a>Présentation technique
 
 La fonction main est divisée en plusieurs parties:
-* Initialisation du HashMap contenant le nom des joueurs
 * Affichage du menu principal (menu d'accueil)
+* Initialisation des données du jeu (PLateau de jeu et noms de joueurs vides)
 * Demande du nom des joueurs
-* Initialisation du plateau de jeu vide
 * Démarrage de la boucle de jeu
 
-La gestion du plateau de jeu est entièrement délégée à la classe Plateau.
+La gestion du plateau de jeu est entièrement déléguée à la classe Plateau.
 Cette classe contient un tableau à 2 dimensions contenant différentes valeurs en fonction des pions qui sont joués :
 - 0 si la case est vide
 - 1 si la case est occupée par un pion du joueur 1
@@ -72,8 +71,33 @@ Cette classe est aussi résponsable de diverse actions telle que :
       - En ligne
       - En colonne
       - Dans les 2 diagonales
+   
+La classe GameMenus fournie une série de méthodes static pour afficher les menus aux joueurs
+et gérer les entrées utilisateurs pour répondre aux questions
 
-## Notice d'utilisation
+La classe GameData contient les variables globales nécessaires au fonctionnement du jeu, ainsi que déterminer aléatoirement
+lequel des joueurs commence :
+- Le plateau de jeu 
+    ```java 
+    static private Plateau plateau;
+    ``` 
+- Le numéro du joueur à qui c'est le tour de jouer
+  ```java
+  static private int joueurCourant;  
+
+- La liste des joueurs
+    ```java
+    static private HashMap<Integer, String> joueurs = new HashMap<Integer, String>();
+    ```
+- L'initialisation d'une nouvelle partie
+    ```java
+    public static void initData(){
+        plateau = new Plateau();
+        joueurCourant = (int) Math.round(Math.random() + 1); //On determine aléatoirement quel joueur commence.
+    }
+    ```
+
+## <a id="notice-d'utilisation"></a>Notice d'utilisation
 
 Compilez le programme à l'aide de la commande suivante :
 ```
@@ -84,7 +108,7 @@ Vous pouvez ensuite executer le programme avc la commande :
 java Main
 ```
 
-## Exemple d'utilisation
+## <a id="exemple-d'utilisation"></a>Exemple d'utilisation
 
 ![alt text](md-imgs/Accueil.PNG "Menu d'accueil")
 
