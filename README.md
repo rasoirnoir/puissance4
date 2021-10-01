@@ -2,6 +2,9 @@
 
 - [PUISSANCE 4 (En ligne de commande)](#puissance-4-en-ligne-de-commande)
   - [Présentation du jeu](#présentation-du-jeu)
+  - [Présentation technique](#présentation-technique)
+  - [Notice d'utilisation](#notice-d'utilisation)
+  - [Exemple d'utilisation](#exemple-d'utilisation)
 
 ## Présentation du jeu
 

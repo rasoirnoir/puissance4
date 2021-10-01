@@ -135,7 +135,7 @@ public class Plateau {
 	 * @return true si puissance 4, false sinon
 	 */
 	private boolean puissanceDiagonale1(int coordonneesLigne, int coordonneesColonne){
-		int compteur = 1; //Le pion de depart. Si il arrive à 4, c'est gagné
+		int compteur = 1; //on compte le pion de depart. Si compteur arrive à 4, c'est gagné
 		int joueur = this.plateau[coordonneesLigne][coordonneesColonne];
 		int i = coordonneesLigne - 1;
 		int j = coordonneesColonne - 1;
@@ -205,7 +205,7 @@ public class Plateau {
 	/**
 	 * Affiche un beau plateau dans la console
 	 */
-	public void afficherPlateau(HashMap<Integer, String> nomJoueurs) {
+	public void afficherPlateau() {
 		String output = "\n";
 		char blanc = '\u25CB'; //joueur 1
 		char noir = '\u25CF'; //joueur 2
@@ -218,8 +218,8 @@ public class Plateau {
 				output += "|" + charAffiche;
 			}
 			output += "|";
-			if(i == this.plateau.length - 3) output += "\t" + nomJoueurs.get(1) + " : " + blanc;
-			if(i == this.plateau.length - 2) output += "\t" + nomJoueurs.get(2) + " : " + noir;
+			if(i == this.plateau.length - 3) output += "\t" + GameData.getJoueurs().get(1) + " : " + blanc;
+			if(i == this.plateau.length - 2) output += "\t" + GameData.getJoueurs().get(2) + " : " + noir;
 			output += "\n";
 		}
 		output += " 1 2 3 4 5 6 7";
